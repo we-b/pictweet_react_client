@@ -1,10 +1,10 @@
 import React, { PropTypes } from 'react'
-import Todo from './Todo'
+import Tweet from './Tweet'
 
 const TodoList = ({ todos, onTodoClick }) => (
   <ul>
     {todos.map(todo =>
-      <Todo
+      <Tweet
         key={todo.id}
         {...todo}
         onClick={() => onTodoClick(todo.id)}
