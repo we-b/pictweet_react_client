@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import Tweet from './Tweet'
 
-const TodoList = ({ todos, onTodoClick }) => (
+const TweetList = ({ todos, onTodoClick }) => (
   <ul>
     {todos.map(todo =>
       <Tweet
@@ -13,7 +13,7 @@ const TodoList = ({ todos, onTodoClick }) => (
   </ul>
 )
 
-TodoList.propTypes = {
+TweetList.propTypes = {
   todos: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     completed: PropTypes.bool.isRequired,
@@ -22,4 +22,4 @@ TodoList.propTypes = {
   onTodoClick: PropTypes.func.isRequired
 }
 
-export default TodoList
+export default TweetList
