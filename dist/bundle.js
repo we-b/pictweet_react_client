@@ -425,12 +425,12 @@ var _visibilityFilter2 = _interopRequireDefault(_visibilityFilter);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var todoApp = (0, _redux.combineReducers)({
+var tweetApp = (0, _redux.combineReducers)({
   todos: _todos2.default,
   visibilityFilter: _visibilityFilter2.default
 });
 
-exports.default = todoApp;
+exports.default = tweetApp;
 
 },{"./todos":12,"./visibilityFilter":13,"redux":207}],12:[function(require,module,exports){
 'use strict';
