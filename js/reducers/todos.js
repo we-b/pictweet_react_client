@@ -1,6 +1,6 @@
 const todo = (state, action) => {
   switch (action.type) {
-    case 'ADD_TODO':
+    case 'ADD_TWEET':
       return {
         id: action.id,
         text: action.text,
@@ -22,7 +22,7 @@ const todo = (state, action) => {
 
 const todos = (state = [], action) => {
   switch (action.type) {
-    case 'ADD_TODO':
+    case 'ADD_TWEET':
       return [
         ...state,
         todo(undefined, action)

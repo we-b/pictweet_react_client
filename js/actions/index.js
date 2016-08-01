@@ -1,8 +1,8 @@
-let nextTodoId = 0
-export const addTodo = (text) => {
+let nextTweetId = 0
+export const addTweet = (text) => {
   return {
-    type: 'ADD_TODO',
-    id: nextTodoId++,
+    type: 'ADD_TWEET',
+    id: nextTweetId++,
     text: text
   }
 }
