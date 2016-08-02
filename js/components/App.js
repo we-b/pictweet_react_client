@@ -3,7 +3,7 @@ import AddTweet from '../containers/AddTweet'
 import TweetList from '../containers/TweetList'
 
 const App = () => (
-  <div>
+  <div className="contents row">
     <AddTweet />
     <TweetList />
   </div>

@@ -5,7 +5,7 @@ import {onTweetClick} from '../actions'
 
 let TweetList = ({ tweets, tweetClick }) => {
   return (
-    <ul>
+    <div className="tweet-list">
       {tweets.map(tweet =>
         <Tweet
           key={tweet.id}
@@ -13,7 +13,7 @@ let TweetList = ({ tweets, tweetClick }) => {
           onClick={() => tweetClick()}
         />
       )}
-    </ul>
+    </div>
   )
 }
 

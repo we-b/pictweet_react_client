@@ -6,7 +6,7 @@ let AddTweet = ({ dispatch }) => {
   let input
 
   return (
-    <div>
+    <div className="tweet-form">
       <form onSubmit={e => {
         e.preventDefault()
         if (!input.value.trim()) {
@@ -15,12 +15,11 @@ let AddTweet = ({ dispatch }) => {
         dispatch(addTweet(input.value))
         input.value = ''
       }}>
+        <h3>投稿する</h3>
         <input ref={node => {
           input = node
         }} />
-        <button type="submit">
-          Add Todo
-        </button>
+      <input type="submit"></ input>
       </form>
     </div>
   )
