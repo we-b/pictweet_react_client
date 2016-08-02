@@ -1,11 +1,11 @@
 import React from 'react'
 import AddTweet from '../containers/AddTweet'
-import VisibleTweetList from '../containers/VisibleTweetList'
+import TweetList from '../containers/TweetList'
 
 const App = () => (
   <div>
     <AddTweet />
-    <VisibleTweetList />
+    <TweetList />
   </div>
 )
 

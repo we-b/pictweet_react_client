@@ -6,3 +6,9 @@ export const addTweet = (text) => {
     text: text
   }
 }
+
+export const onTweetClick = () => {
+  return {
+    type: 'ON_TWEET_CLICK'
+  }
+}
