@@ -7,6 +7,13 @@ export const addTweet = (text) => {
   }
 }
 
+export const deleteTweet = (id) => {
+  return {
+    type: 'DELETE_TWEET',
+    id: id
+  }
+}
+
 export const onTweetClick = () => {
   return {
     type: 'ON_TWEET_CLICK'

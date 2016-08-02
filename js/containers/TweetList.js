@@ -1,16 +1,16 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import Tweet from '../components/Tweet'
-import {onTweetClick} from '../actions'
+import {deleteTweet} from '../actions'
 
-let TweetList = ({ tweets, tweetClick }) => {
+let TweetList = ({ tweets, deleteTweet }) => {
   return (
     <div className="tweet-list">
       {tweets.map(tweet =>
         <Tweet
           key={tweet.id}
           {...tweet}
-          onClick={() => tweetClick()}
+          onClickDeleteButton={() => deleteTweet(tweet.id)}
         />
       )}
     </div>
@@ -22,7 +22,7 @@ TweetList.propTypes = {
     id: PropTypes.number.isRequired,
     text: PropTypes.string.isRequired
   }).isRequired).isRequired,
-  tweetClick: PropTypes.func.isRequired
+  deleteTweet: PropTypes.func.isRequired
 }
 
 
@@ -34,8 +34,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    tweetClick: () => {
-      dispatch(onTweetClick())
+    deleteTweet: (id) => {
+      dispatch(deleteTweet(id))
     }
   }
 }

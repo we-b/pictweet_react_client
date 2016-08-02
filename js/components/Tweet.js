@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 
-const Tweet = ({ onClick, text }) => (
+const Tweet = ({ onClickDeleteButton, text }) => (
   <div className="content__post">
     <div className="more">
       <span>
@@ -8,14 +8,14 @@ const Tweet = ({ onClick, text }) => (
       </span>
       <ul className="more_list">
         <li>
-          <a>削除</a>
+          <a onClick={onClickDeleteButton}>削除</a>
         </li>
         <li>
           <a>詳細</a>
         </li>
       </ul>
     </div>
-    <p onClick={onClick} >
+    <p>
       {text}
     </p>
     <span className="name">
@@ -24,7 +24,7 @@ const Tweet = ({ onClick, text }) => (
 )
 
 Tweet.propTypes = {
-  onClick: PropTypes.func.isRequired,
+  onClickDeleteButton: PropTypes.func.isRequired,
   text: PropTypes.string.isRequired
 }
 
