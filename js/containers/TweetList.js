@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import Tweet from '../components/Tweet'
-import {deleteTweet, editTweet} from '../actions'
+import {deleteTweet, editTweetText, editTweetImage} from '../actions'
 
-let TweetList = ({ tweets, deleteTweet, editTweet }) => {
+let TweetList = ({ tweets, deleteTweet, editTweetText, editTweetImage }) => {
   return (
     <div className="tweet-list">
       {tweets.map(tweet =>
@@ -11,7 +11,8 @@ let TweetList = ({ tweets, deleteTweet, editTweet }) => {
           key={tweet.id}
           {...tweet}
           onClickDeleteButton={() => deleteTweet(tweet.id)}
-          onEditText={(text) => editTweet(tweet.id, text)}
+          onEditText={(text) => editTweetText(tweet.id, text)}
+          onEditImage={(image) => editTweetImage(tweet.id, image)}
         />
       )}
     </div>
@@ -25,7 +26,8 @@ TweetList.propTypes = {
     image: PropTypes.string.isRequired
   }).isRequired).isRequired,
   deleteTweet: PropTypes.func.isRequired,
-  editTweet: PropTypes.func.isRequired
+  editTweetText: PropTypes.func.isRequired,
+  editTweetImage: PropTypes.func.isRequired
 }
 
 
@@ -40,8 +42,11 @@ const mapDispatchToProps = (dispatch) => {
     deleteTweet: (id) => {
       dispatch(deleteTweet(id))
     },
-    editTweet: (id, text) => {
-      dispatch(editTweet(id, text))
+    editTweetText: (id, text) => {
+      dispatch(editTweetText(id, text))
+    },
+    editTweetImage: (id, image) => {
+      dispatch(editTweetImage(id, image))
     }
   }
 }

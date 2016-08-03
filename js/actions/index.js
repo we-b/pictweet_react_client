@@ -15,10 +15,18 @@ export const deleteTweet = (id) => {
   }
 }
 
-export const editTweet = (id, text) => {
+export const editTweetText = (id, text) => {
   return {
-    type: 'EDIT_TWEET',
+    type: 'EDIT_TWEET_TEXT',
     id: id,
     text: text
+  }
+}
+
+export const editTweetImage = (id, image) => {
+  return{
+    type: 'EDIT_TWEET_IMAGE',
+    id: id,
+    image: image
   }
 }
