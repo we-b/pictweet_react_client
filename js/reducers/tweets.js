@@ -7,7 +7,6 @@ const tweet = (state, action) => {
         image: action.image
       }
       case 'EDIT_TWEET_TEXT':
-        console.log("shizuka")
         if(state.id !== action.id){
           return state
         }
@@ -30,8 +29,9 @@ const tweets = (state = [], action) => {
   switch (action.type) {
     case 'ADD_TWEET':
       return [
-        ...state,
-        tweet(undefined, action)
+        tweet(undefined, action),
+        ...state
+
       ]
     case 'DELETE_TWEET':
       return state.filter(tweet =>
