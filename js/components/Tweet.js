@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 
-const Tweet = ({ onClickDeleteButton, text }) => (
+const Tweet = ({ onClickDeleteButton, onEditText ,text }) => (
   <div className="content__post">
     <div className="more">
       <span>
@@ -10,16 +10,11 @@ const Tweet = ({ onClickDeleteButton, text }) => (
         <li>
           <a onClick={onClickDeleteButton}>削除</a>
         </li>
-        <li>
-          <a>詳細</a>
-        </li>
       </ul>
     </div>
-    <p>
-      {text}
-    </p>
-    <span className="name">
-    </span>
+    <input type="text" defaultValue={text} onBlur={e => {
+      onEditText(e.target.value);
+    }}/>
   </div>
 )
 

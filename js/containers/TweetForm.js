@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { addTweet } from '../actions'
 
-let AddTweet = ({ dispatch }) => {
+let TweetForm = ({ dispatch }) => {
   let input
 
   return (
@@ -25,5 +25,5 @@ let AddTweet = ({ dispatch }) => {
   )
 }
 
-AddTweet = connect()(AddTweet)
-export default AddTweet
+TweetForm = connect()(TweetForm)
+export default TweetForm
