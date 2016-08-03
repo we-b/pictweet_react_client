@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 
-const Tweet = ({ onClickDeleteButton, onEditText ,text }) => (
-  <div className="content__post">
+const Tweet = ({ onClickDeleteButton, onEditText ,text, image }) => (
+  <div className="content__post" style={{ backgroundImage: 'url(' + image + ')'}}>
     <div className="more">
       <span>
         <img></img>
@@ -20,7 +20,8 @@ const Tweet = ({ onClickDeleteButton, onEditText ,text }) => (
 
 Tweet.propTypes = {
   onClickDeleteButton: PropTypes.func.isRequired,
-  text: PropTypes.string.isRequired
+  text: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired
 }
 
 export default Tweet

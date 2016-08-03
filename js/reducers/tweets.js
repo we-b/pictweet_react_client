@@ -3,11 +3,10 @@ const tweet = (state, action) => {
     case 'ADD_TWEET':
       return {
         id: action.id,
-        text: action.text
+        text: action.text,
+        image: action.image
       }
       case 'EDIT_TWEET':
-        console.log(action.id)
-        console.log(state.id)
         if(state.id !== action.id){
           return state
         }
@@ -31,7 +30,6 @@ const tweets = (state = [], action) => {
         tweet.id !== action.id
       );
     case 'EDIT_TWEET':
-      console.log(state)
       return state.map( t =>
         tweet(t, action)
       )

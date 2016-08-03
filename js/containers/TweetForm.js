@@ -3,22 +3,29 @@ import { connect } from 'react-redux'
 import { addTweet } from '../actions'
 
 let TweetForm = ({ dispatch }) => {
-  let input
+  let textField
+  let imageField
 
   return (
     <div className="tweet-form">
       <form onSubmit={e => {
         e.preventDefault()
-        if (!input.value.trim()) {
+        if (!textField.value.trim() ||  !imageField.value.trim()) {
           return
         }
-        dispatch(addTweet(input.value))
-        input.value = ''
+        dispatch(addTweet(textField.value, imageField.value))
+        textField.value = ''
+        imageField.value = ''
       }}>
         <h3>投稿する</h3>
         <input ref={node => {
-          input = node
+          textField = node
         }} />
+
+        <input ref={node => {
+          imageField = node
+        }} />
+
       <input type="submit"></ input>
       </form>
     </div>

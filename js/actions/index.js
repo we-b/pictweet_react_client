@@ -1,9 +1,10 @@
 let nextTweetId = 0
-export const addTweet = (text) => {
+export const addTweet = (text, image) => {
   return {
     type: 'ADD_TWEET',
     id: nextTweetId++,
-    text: text
+    text: text,
+    image: image
   }
 }
 

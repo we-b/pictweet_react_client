@@ -21,7 +21,8 @@ let TweetList = ({ tweets, deleteTweet, editTweet }) => {
 TweetList.propTypes = {
   tweets: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
-    text: PropTypes.string.isRequired
+    text: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired
   }).isRequired).isRequired,
   deleteTweet: PropTypes.func.isRequired,
   editTweet: PropTypes.func.isRequired
