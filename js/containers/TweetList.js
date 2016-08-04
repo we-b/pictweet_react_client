@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import Tweet from '../components/Tweet'
-import {deleteTweetAsync, editTweetText, editTweetImage, fetchTweets} from '../actions'
+import {deleteTweetAsync, editTweetTextAsync, editTweetImageAsync, fetchTweets} from '../actions'
 
-let TweetList = ({ tweets, deleteTweetAsync, editTweetText, editTweetImage, fetchTweets }) => {
+let TweetList = ({ tweets, deleteTweetAsync, editTweetTextAsync, editTweetImageAsync, fetchTweets }) => {
   return (
     <div className="tweet-list">
       <a onClick={
@@ -17,8 +17,8 @@ let TweetList = ({ tweets, deleteTweetAsync, editTweetText, editTweetImage, fetc
           key={tweet.id}
           {...tweet}
           onClickDeleteButton={() => deleteTweetAsync(tweet.id)}
-          onEditText={(text) => editTweetText(tweet.id, text)}
-          onEditImage={(image) => editTweetImage(tweet.id, image)}
+          onEditText={(text) => editTweetTextAsync(tweet.id, text)}
+          onEditImage={(image) => editTweetImageAsync(tweet.id, image)}
         />
       )}
     </div>
@@ -32,8 +32,8 @@ TweetList.propTypes = {
     image: PropTypes.string.isRequired
   }).isRequired).isRequired,
   deleteTweetAsync: PropTypes.func.isRequired,
-  editTweetText: PropTypes.func.isRequired,
-  editTweetImage: PropTypes.func.isRequired
+  editTweetTextAsync: PropTypes.func.isRequired,
+  editTweetImageAsync: PropTypes.func.isRequired
 }
 
 
@@ -48,11 +48,11 @@ const mapDispatchToProps = (dispatch) => {
     deleteTweetAsync: (id) => {
       dispatch(deleteTweetAsync(id))
     },
-    editTweetText: (id, text) => {
-      dispatch(editTweetText(id, text))
+    editTweetTextAsync: (id, text) => {
+      dispatch(editTweetTextAsync(id, text))
     },
-    editTweetImage: (id, image) => {
-      dispatch(editTweetImage(id, image))
+    editTweetImageAsync: (id, image) => {
+      dispatch(editTweetImageAsync(id, image))
     },
     fetchTweets: () => {
       dispatch(fetchTweets())

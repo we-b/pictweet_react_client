@@ -44,19 +44,46 @@ const deleteTweet = (tweet) => {
   }
 }
 
-export const editTweetText = (id, text) => {
-  return {
-    type: 'EDIT_TWEET_TEXT',
-    id: id,
-    text: text
+export const editTweetTextAsync = (id, text) => {
+  return (dispatch) => {
+    return $.ajax({
+      url: `http://localhost:3000/api/tweets/${id}`,
+      type: 'put',
+      dataType: 'json',
+      data: { id: id, text: text }
+    })
+    .done(data => dispatch(editTweetText(data.tweet)))
+    .fail(data => console.log(data))
   }
 }
 
-export const editTweetImage = (id, image) => {
+const editTweetText = (tweet) => {
+  return {
+    type: 'EDIT_TWEET_TEXT',
+    id: tweet.id,
+    text: tweet.text
+  }
+}
+
+export const editTweetImageAsync = (id, image) => {
+  return (dispatch) => {
+    return $.ajax({
+      url: `http://localhost:3000/api/tweets/${id}`,
+      type: 'put',
+      dataType: 'json',
+      data: { id: id, image: image }
+    })
+    .done(data => dispatch(editTweetImage(data.tweet)))
+    .fail(data => console.log(data))
+  }
+}
+
+
+const editTweetImage = (tweet) => {
   return{
     type: 'EDIT_TWEET_IMAGE',
-    id: id,
-    image: image
+    id: tweet.id,
+    image: tweet.image
   }
 }
 
