@@ -1,11 +1,17 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import Tweet from '../components/Tweet'
-import {deleteTweet, editTweetText, editTweetImage} from '../actions'
+import {deleteTweet, editTweetText, editTweetImage, fetchTweets} from '../actions'
 
-let TweetList = ({ tweets, deleteTweet, editTweetText, editTweetImage }) => {
+let TweetList = ({ tweets, deleteTweet, editTweetText, editTweetImage, fetchTweets }) => {
   return (
     <div className="tweet-list">
+      <a onClick={
+          e => {
+            e.preventDefault()
+            fetchTweets()
+          }
+        }>更新</a>
       {tweets.map(tweet =>
         <Tweet
           key={tweet.id}
@@ -47,6 +53,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     editTweetImage: (id, image) => {
       dispatch(editTweetImage(id, image))
+    },
+    fetchTweets: () => {
+      dispatch(fetchTweets())
     }
   }
 }

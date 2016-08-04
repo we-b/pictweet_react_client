@@ -45,6 +45,8 @@ const tweets = (state = [], action) => {
       return state.map( t =>
         tweet(t, action)
       )
+    case 'RECEIVE_TWEETS':
+      return action.tweets
     default:
       return state
   }

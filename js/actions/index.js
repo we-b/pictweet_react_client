@@ -1,3 +1,5 @@
+import $ from 'jquery'
+
 let nextTweetId = 0
 export const addTweet = (text, image) => {
   return {
@@ -28,5 +30,20 @@ export const editTweetImage = (id, image) => {
     type: 'EDIT_TWEET_IMAGE',
     id: id,
     image: image
+  }
+}
+
+const receiveTweets = (data) => {
+  return {
+    type: 'RECEIVE_TWEETS',
+    tweets: data.tweets
+  }
+}
+
+export const fetchTweets = () => {
+  return (dispatch) => {
+    return $.getJSON('http://localhost:3000/api/tweets')
+      .done(data => dispatch(receiveTweets(data)))
+      .fail(data => console.log(data))
   }
 }
