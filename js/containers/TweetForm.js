@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { postTweet } from '../actions'
+import { postTweetAsync } from '../actions'
 
 let TweetForm = ({ dispatch }) => {
   let textField
@@ -13,7 +13,7 @@ let TweetForm = ({ dispatch }) => {
         if (!textField.value.trim() ||  !imageField.value.trim()) {
           return
         }
-        dispatch(postTweet(textField.value, imageField.value))
+        dispatch(postTweetAsync(textField.value, imageField.value))
         textField.value = ''
         imageField.value = ''
       }}>

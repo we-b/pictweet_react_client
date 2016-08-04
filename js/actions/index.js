@@ -2,7 +2,7 @@ import $ from 'jquery'
 
 let nextTweetId = 0
 
-export const postTweet = (text, image) => {
+export const postTweetAsync = (text, image) => {
   return (dispatch) => {
     return $.ajax({
       url: 'http://localhost:3000/api/tweets',
