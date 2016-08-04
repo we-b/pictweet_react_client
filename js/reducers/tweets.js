@@ -1,6 +1,7 @@
 const tweet = (state, action) => {
   switch (action.type) {
     case 'ADD_TWEET':
+      console.log(action)
       return {
         id: action.id,
         text: action.text,

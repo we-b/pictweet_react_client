@@ -1,12 +1,26 @@
 import $ from 'jquery'
 
 let nextTweetId = 0
-export const addTweet = (text, image) => {
+
+export const postTweet = (text, image) => {
+  return (dispatch) => {
+    return $.ajax({
+      url: 'http://localhost:3000/api/tweets',
+      type: 'post',
+      dataType: 'json',
+      data: { text: text, image: image }
+    })
+    .done(data => dispatch(addTweet(data.tweet)))
+    .fail(data => console.log(data))
+  }
+}
+
+const addTweet = (tweet) => {
   return {
     type: 'ADD_TWEET',
-    id: nextTweetId++,
-    text: text,
-    image: image
+    id: tweet.id,
+    text: tweet.text,
+    image: tweet.image
   }
 }
 
