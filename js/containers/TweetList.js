@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import Tweet from '../components/Tweet'
-import {deleteTweet, editTweetText, editTweetImage, fetchTweets} from '../actions'
+import {deleteTweetAsync, editTweetText, editTweetImage, fetchTweets} from '../actions'
 
-let TweetList = ({ tweets, deleteTweet, editTweetText, editTweetImage, fetchTweets }) => {
+let TweetList = ({ tweets, deleteTweetAsync, editTweetText, editTweetImage, fetchTweets }) => {
   return (
     <div className="tweet-list">
       <a onClick={
@@ -16,7 +16,7 @@ let TweetList = ({ tweets, deleteTweet, editTweetText, editTweetImage, fetchTwee
         <Tweet
           key={tweet.id}
           {...tweet}
-          onClickDeleteButton={() => deleteTweet(tweet.id)}
+          onClickDeleteButton={() => deleteTweetAsync(tweet.id)}
           onEditText={(text) => editTweetText(tweet.id, text)}
           onEditImage={(image) => editTweetImage(tweet.id, image)}
         />
@@ -31,7 +31,7 @@ TweetList.propTypes = {
     text: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired
   }).isRequired).isRequired,
-  deleteTweet: PropTypes.func.isRequired,
+  deleteTweetAsync: PropTypes.func.isRequired,
   editTweetText: PropTypes.func.isRequired,
   editTweetImage: PropTypes.func.isRequired
 }
@@ -45,8 +45,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    deleteTweet: (id) => {
-      dispatch(deleteTweet(id))
+    deleteTweetAsync: (id) => {
+      dispatch(deleteTweetAsync(id))
     },
     editTweetText: (id, text) => {
       dispatch(editTweetText(id, text))

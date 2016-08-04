@@ -24,10 +24,23 @@ const addTweet = (tweet) => {
   }
 }
 
-export const deleteTweet = (id) => {
+export const deleteTweetAsync = (id) => {
+  return (dispatch) => {
+    return $.ajax({
+      url: `http://localhost:3000/api/tweets/${id}`,
+      type: 'delete',
+      dataType: 'json',
+      data: { id: id }
+    })
+    .done(data => dispatch(deleteTweet(data.tweet)))
+    .fail(data => console.log(data))
+  }
+}
+
+const deleteTweet = (tweet) => {
   return {
     type: 'DELETE_TWEET',
-    id: id
+    id: tweet.id
   }
 }
 
