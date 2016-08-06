@@ -1,7 +1,5 @@
 import $ from 'jquery'
 
-let nextTweetId = 0
-
 export const postTweetAsync = (text, image) => {
   return (dispatch) => {
     return $.ajax({

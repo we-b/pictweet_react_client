@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 
 const Tweet = ({ onClickDeleteButton, onEditText, onEditImage ,text, image }) => (
-  <div className="content__post" style={{ backgroundImage: 'url(' + image + ')'}}>
+  <div className="content__post" style={{ backgroundImage: `url(${image})`}}>
     <div className="more">
       <span>
         <img></img>
@@ -12,6 +12,7 @@ const Tweet = ({ onClickDeleteButton, onEditText, onEditImage ,text, image }) =>
         </li>
       </ul>
     </div>
+    <p>{text}</p>
     <input type="text" defaultValue={text} onBlur={e => {
       onEditText(e.target.value);
     }}/>
