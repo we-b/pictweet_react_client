@@ -12,8 +12,6 @@ var _jquery2 = _interopRequireDefault(_jquery);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var nextTweetId = 0;
-
 var postTweetAsync = exports.postTweetAsync = function postTweetAsync(text, image) {
   return function (dispatch) {
     return _jquery2.default.ajax({
@@ -130,6 +128,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -144,70 +144,119 @@ var _TweetList2 = _interopRequireDefault(_TweetList);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var App = function App() {
-  return _react2.default.createElement(
-    'div',
-    { className: 'contents row' },
-    _react2.default.createElement(_TweetForm2.default, null),
-    _react2.default.createElement(_TweetList2.default, null)
-  );
-};
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var App = function (_React$Component) {
+  _inherits(App, _React$Component);
+
+  function App() {
+    _classCallCheck(this, App);
+
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(App).apply(this, arguments));
+  }
+
+  _createClass(App, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'contents row' },
+        _react2.default.createElement(_TweetForm2.default, null),
+        _react2.default.createElement(_TweetList2.default, null)
+      );
+    }
+  }]);
+
+  return App;
+}(_react2.default.Component);
 
 exports.default = App;
 
 },{"../containers/TweetForm":4,"../containers/TweetList":5,"react":197}],3:[function(require,module,exports){
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _react = require('react');
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Tweet = function Tweet(_ref) {
-  var onClickDeleteButton = _ref.onClickDeleteButton;
-  var onEditText = _ref.onEditText;
-  var onEditImage = _ref.onEditImage;
-  var text = _ref.text;
-  var image = _ref.image;
-  return _react2.default.createElement(
-    'div',
-    { className: 'content__post', style: { backgroundImage: 'url(' + image + ')' } },
-    _react2.default.createElement(
-      'div',
-      { className: 'more' },
-      _react2.default.createElement(
-        'span',
-        null,
-        _react2.default.createElement('img', null)
-      ),
-      _react2.default.createElement(
-        'ul',
-        { className: 'more_list' },
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Tweet = function (_React$Component) {
+  _inherits(Tweet, _React$Component);
+
+  function Tweet() {
+    _classCallCheck(this, Tweet);
+
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(Tweet).apply(this, arguments));
+  }
+
+  _createClass(Tweet, [{
+    key: "render",
+    value: function render() {
+      var onClickDeleteButton = this.props.onClickDeleteButton;
+      var onEditText = this.props.onEditText;
+      var onEditImage = this.props.onEditImage;
+      var text = this.props.text;
+      var image = this.props.image;
+      return _react2.default.createElement(
+        "div",
+        { className: "content__post", style: { backgroundImage: "url(" + image + ")" } },
         _react2.default.createElement(
-          'li',
-          null,
+          "div",
+          { className: "more" },
           _react2.default.createElement(
-            'a',
-            { onClick: onClickDeleteButton },
-            '削除'
+            "span",
+            null,
+            _react2.default.createElement("img", null)
+          ),
+          _react2.default.createElement(
+            "ul",
+            { className: "more_list" },
+            _react2.default.createElement(
+              "li",
+              null,
+              _react2.default.createElement(
+                "a",
+                { onClick: onClickDeleteButton },
+                "削除"
+              )
+            )
           )
-        )
-      )
-    ),
-    _react2.default.createElement('input', { type: 'text', defaultValue: text, onBlur: function onBlur(e) {
-        onEditText(e.target.value);
-      } }),
-    _react2.default.createElement('br', null),
-    _react2.default.createElement('input', { type: 'text', defaultValue: image, onBlur: function onBlur(e) {
-        onEditImage(e.target.value);
-      } })
-  );
-};
+        ),
+        _react2.default.createElement(
+          "p",
+          null,
+          text
+        ),
+        _react2.default.createElement("input", { type: "text", defaultValue: text, onBlur: function onBlur(e) {
+            onEditText(e.target.value);
+          } }),
+        _react2.default.createElement("br", null),
+        _react2.default.createElement("input", { type: "text", defaultValue: image, onBlur: function onBlur(e) {
+            onEditImage(e.target.value);
+          } })
+      );
+    }
+  }]);
+
+  return Tweet;
+}(_react2.default.Component);
 
 Tweet.propTypes = {
   onClickDeleteButton: _react.PropTypes.func.isRequired,
@@ -226,6 +275,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -236,43 +287,82 @@ var _actions = require('../actions');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var TweetForm = function TweetForm(_ref) {
-  var dispatch = _ref.dispatch;
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-  var textField = void 0;
-  var imageField = void 0;
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-  return _react2.default.createElement(
-    'div',
-    { className: 'tweet-form' },
-    _react2.default.createElement(
-      'form',
-      { onSubmit: function onSubmit(e) {
-          e.preventDefault();
-          if (!textField.value.trim() || !imageField.value.trim()) {
-            return;
-          }
-          dispatch((0, _actions.postTweetAsync)(textField.value, imageField.value));
-          textField.value = '';
-          imageField.value = '';
-        } },
-      _react2.default.createElement(
-        'h3',
-        null,
-        '投稿する'
-      ),
-      _react2.default.createElement('input', { ref: function ref(node) {
-          textField = node;
-        } }),
-      _react2.default.createElement('input', { ref: function ref(node) {
-          imageField = node;
-        } }),
-      _react2.default.createElement('input', { type: 'submit' })
-    )
-  );
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TweetForm = function (_React$Component) {
+  _inherits(TweetForm, _React$Component);
+
+  function TweetForm() {
+    _classCallCheck(this, TweetForm);
+
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(TweetForm).apply(this, arguments));
+  }
+
+  _createClass(TweetForm, [{
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      var textField = void 0;
+      var imageField = void 0;
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'tweet-form' },
+        _react2.default.createElement(
+          'form',
+          { onSubmit: function onSubmit(e) {
+              e.preventDefault();
+              if (!textField.value.trim() || !imageField.value.trim()) {
+                return;
+              }
+              _this2.props.postTweetAsync(textField.value, imageField.value);
+              textField.value = '';
+              imageField.value = '';
+            } },
+          _react2.default.createElement(
+            'h3',
+            null,
+            '投稿する'
+          ),
+          _react2.default.createElement('input', { ref: function ref(node) {
+              textField = node;
+            } }),
+          _react2.default.createElement('input', { ref: function ref(node) {
+              imageField = node;
+            } }),
+          _react2.default.createElement('input', { type: 'submit' })
+        )
+      );
+    }
+  }]);
+
+  return TweetForm;
+}(_react2.default.Component);
+
+TweetForm.propTypes = {
+  postTweetAsync: _react.PropTypes.func.isRequired
 };
 
-TweetForm = (0, _reactRedux.connect)()(TweetForm);
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    postTweetAsync: function postTweetAsync(text, image) {
+      dispatch((0, _actions.postTweetAsync)(text, image));
+    }
+  };
+};
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    state: state
+  };
+};
+
+TweetForm = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(TweetForm);
 exports.default = TweetForm;
 
 },{"../actions":1,"react":197,"react-redux":14}],5:[function(require,module,exports){
@@ -283,6 +373,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
 
@@ -298,41 +390,55 @@ var _actions = require('../actions');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var TweetList = function TweetList(_ref) {
-  var tweets = _ref.tweets;
-  var deleteTweetAsync = _ref.deleteTweetAsync;
-  var editTweetTextAsync = _ref.editTweetTextAsync;
-  var editTweetImageAsync = _ref.editTweetImageAsync;
-  var fetchTweets = _ref.fetchTweets;
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-  return _react2.default.createElement(
-    'div',
-    { className: 'tweet-list' },
-    _react2.default.createElement(
-      'a',
-      { onClick: function onClick(e) {
-          e.preventDefault();
-          fetchTweets();
-        } },
-      '更新'
-    ),
-    tweets.map(function (tweet) {
-      return _react2.default.createElement(_Tweet2.default, _extends({
-        key: tweet.id
-      }, tweet, {
-        onClickDeleteButton: function onClickDeleteButton() {
-          return deleteTweetAsync(tweet.id);
-        },
-        onEditText: function onEditText(text) {
-          return editTweetTextAsync(tweet.id, text);
-        },
-        onEditImage: function onEditImage(image) {
-          return editTweetImageAsync(tweet.id, image);
-        }
-      }));
-    })
-  );
-};
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TweetList = function (_React$Component) {
+  _inherits(TweetList, _React$Component);
+
+  function TweetList() {
+    _classCallCheck(this, TweetList);
+
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(TweetList).apply(this, arguments));
+  }
+
+  _createClass(TweetList, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.props.fetchTweets();
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'tweet-list' },
+        this.props.tweets.map(function (tweet) {
+          return _react2.default.createElement(_Tweet2.default, _extends({
+            key: tweet.id
+          }, tweet, {
+            onClickDeleteButton: function onClickDeleteButton() {
+              return _this2.props.deleteTweetAsync(tweet.id);
+            },
+            onEditText: function onEditText(text) {
+              return _this2.props.editTweetTextAsync(tweet.id, text);
+            },
+            onEditImage: function onEditImage(image) {
+              return _this2.props.editTweetImageAsync(tweet.id, image);
+            }
+          }));
+        })
+      );
+    }
+  }]);
+
+  return TweetList;
+}(_react2.default.Component);
 
 TweetList.propTypes = {
   tweets: _react.PropTypes.arrayOf(_react.PropTypes.shape({
