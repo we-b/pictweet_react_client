@@ -3,26 +3,25 @@ import { connect } from 'react-redux'
 import Tweet from '../components/Tweet'
 import {deleteTweetAsync, editTweetTextAsync, editTweetImageAsync, fetchTweets} from '../actions'
 
-let TweetList = ({ tweets, deleteTweetAsync, editTweetTextAsync, editTweetImageAsync, fetchTweets }) => {
-  return (
-    <div className="tweet-list">
-      <a onClick={
-          e => {
-            e.preventDefault()
-            fetchTweets()
-          }
-        }>更新</a>
-      {tweets.map(tweet =>
-        <Tweet
-          key={tweet.id}
-          {...tweet}
-          onClickDeleteButton={() => deleteTweetAsync(tweet.id)}
-          onEditText={(text) => editTweetTextAsync(tweet.id, text)}
-          onEditImage={(image) => editTweetImageAsync(tweet.id, image)}
-        />
-      )}
-    </div>
-  )
+class TweetList extends React.Component{
+  componentDidMount() {
+    this.props.fetchTweets()
+  }
+  render(){
+    return(
+      <div className="tweet-list">
+        {this.props.tweets.map(tweet =>
+          <Tweet
+            key={tweet.id}
+            {...tweet}
+            onClickDeleteButton={() => this.props.deleteTweetAsync(tweet.id)}
+            onEditText={(text) => this.props.editTweetTextAsync(tweet.id, text)}
+            onEditImage={(image) => this.props.editTweetImageAsync(tweet.id, image)}
+          />
+        )}
+      </div>
+    )
+  }
 }
 
 TweetList.propTypes = {
