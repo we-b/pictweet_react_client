@@ -1,8 +1,9 @@
 import React, { PropTypes } from 'react'
-import { connect } from 'react-redux'
-import { postTweetAsync } from '../actions'
 
 class TweetForm extends React.Component{
+  componentDidMount(){
+
+  }
   render(){
     let textField
     let imageField
@@ -14,7 +15,7 @@ class TweetForm extends React.Component{
           if (!textField.value.trim() ||  !imageField.value.trim()) {
             return
           }
-          this.props.postTweetAsync(textField.value, imageField.value)
+          this.props.onTweetSubmit(textField.value, imageField.value)
           textField.value = ''
           imageField.value = ''
         }}>
@@ -35,22 +36,7 @@ class TweetForm extends React.Component{
 }
 
 TweetForm.propTypes = {
-  postTweetAsync: PropTypes.func.isRequired
+  onTweetSubmit: PropTypes.func.isRequired
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    postTweetAsync: (text, image) => {
-      dispatch(postTweetAsync(text, image))
-    }
-  }
-}
-
-const mapStateToProps = (state) => {
-  return {
-    state: state
-  }
-}
-
-TweetForm = connect(mapStateToProps, mapDispatchToProps)(TweetForm)
 export default TweetForm
