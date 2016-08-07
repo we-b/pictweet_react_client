@@ -2,11 +2,7 @@ import React, { PropTypes } from 'react'
 
 class Tweet extends React.Component{
   render(){
-    const text = this.props.text
-    const image = this.props.image
-    const id = this.props.id
-    const onClickDeleteButton = this.props.onClickDeleteButton
-    const onBlurInputField = this.props.onBlurInputField
+    const {text, image, id, onClickDeleteButton, onBlurInputField} = this.props
     return(
       <div className="content__post" style={{ backgroundImage: `url(${image})`}}>
         <div className="more">

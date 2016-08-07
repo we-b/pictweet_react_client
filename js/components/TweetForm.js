@@ -4,6 +4,7 @@ class TweetForm extends React.Component{
   render(){
     let textField
     let imageField
+    const { onSubmitTweetForm } = this.props
 
     return(
       <div className="tweet-form">
@@ -12,7 +13,7 @@ class TweetForm extends React.Component{
           if (!textField.value.trim() ||  !imageField.value.trim()) {
             return
           }
-          this.props.onSubmitTweetForm(textField.value, imageField.value)
+          onSubmitTweetForm(textField.value, imageField.value)
           textField.value = ''
           imageField.value = ''
         }}>

@@ -3,14 +3,15 @@ import Tweet from '../components/Tweet'
 
 class TweetList extends React.Component{
   render(){
+    const {tweets, updateTweet, deleteTweet} = this.props
     return(
       <div className="tweet-list">
-        {this.props.tweets.map((tweet) =>
+        {tweets.map((tweet) =>
           <Tweet
             key={tweet.id}
             {...tweet}
-            onClickDeleteButton={() => this.props.deleteTweet(tweet.id)}
-            onBlurInputField={(text, type) => this.props.updateTweet(tweet.id, text, type)}
+            onClickDeleteButton={() => deleteTweet(tweet.id)}
+            onBlurInputField={(text, type) => updateTweet(tweet.id, text, type)}
           />
         )}
       </div>
