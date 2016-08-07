@@ -21,14 +21,31 @@ class App extends React.Component{
     }
     return uuid;
   }
-  handleTweetSubmit(text, image){
+  createTweet(text, image){
     this.setState({tweets: [...this.state.tweets, {id: this.uuid(), text, image}]})
+  }
+  deleteTweet(id){
+    this.setState({tweets: this.state.tweets.filter(tweet => tweet.id !== id)})
+  }
+  updateTweet(id, text, type){
+    const newTweets = this.state.tweets.map(t => {
+      if( t.id == id ){
+        if (type == "text"){
+          t.text = text
+        }
+        else if (type == "image"){
+          t.image = text
+        }
+      }
+      return t
+    })
+    this.setState({tweets: newTweets})
   }
   render(){
     return(
       <div className="contents row">
-        <TweetForm onTweetSubmit={this.handleTweetSubmit.bind(this)}/>
-        <TweetList tweets={this.state.tweets} />
+        <TweetForm onSubmitTweetForm={this.createTweet.bind(this)}/>
+        <TweetList tweets={this.state.tweets} deleteTweet={this.deleteTweet.bind(this)} updateTweet={this.updateTweet.bind(this)} />
       </div>
     );
   }

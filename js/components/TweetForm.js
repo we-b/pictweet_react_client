@@ -1,9 +1,6 @@
 import React, { PropTypes } from 'react'
 
 class TweetForm extends React.Component{
-  componentDidMount(){
-
-  }
   render(){
     let textField
     let imageField
@@ -15,7 +12,7 @@ class TweetForm extends React.Component{
           if (!textField.value.trim() ||  !imageField.value.trim()) {
             return
           }
-          this.props.onTweetSubmit(textField.value, imageField.value)
+          this.props.onSubmitTweetForm(textField.value, imageField.value)
           textField.value = ''
           imageField.value = ''
         }}>
@@ -36,7 +33,7 @@ class TweetForm extends React.Component{
 }
 
 TweetForm.propTypes = {
-  onTweetSubmit: PropTypes.func.isRequired
+  onSubmitTweetForm: PropTypes.func.isRequired
 }
 
 export default TweetForm

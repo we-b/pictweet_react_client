@@ -10,24 +10,22 @@ class TweetList extends React.Component{
             key={tweet.id}
             {...tweet}
             onClickDeleteButton={() => this.props.deleteTweet(tweet.id)}
-            onEditText={(text) => this.props.editTweetText(tweet.id, text)}
-            onEditImage={(image) => this.props.editTweetImage(tweet.id, image)}
+            onBlurInputField={(text, type) => this.props.updateTweet(tweet.id, text, type)}
           />
         )}
       </div>
     )
   }
 }
-//
-// TweetList.propTypes = {
-//   tweets: PropTypes.arrayOf(PropTypes.shape({
-//     id: PropTypes.number.isRequired,
-//     text: PropTypes.string.isRequired,
-//     image: PropTypes.string.isRequired
-//   }).isRequired).isRequired,
-//   deleteTweet: PropTypes.func.isRequired,
-//   editTweetText: PropTypes.func.isRequired,
-//   editTweetImage: PropTypes.func.isRequired
-// }
+
+TweetList.propTypes = {
+  tweets: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired
+  }).isRequired).isRequired,
+  deleteTweet: PropTypes.func.isRequired,
+  updateTweet: PropTypes.func.isRequired,
+}
 
 export default TweetList
