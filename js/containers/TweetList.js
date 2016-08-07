@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react'
 import Tweet from '../components/Tweet'
+import { connect } from 'react-redux'
+import { deleteTweet, updateTweet } from '../actions'
 
 class TweetList extends React.Component{
   render(){
@@ -11,7 +13,7 @@ class TweetList extends React.Component{
             key={tweet.id}
             {...tweet}
             onClickDeleteButton={() => deleteTweet(tweet.id)}
-            onBlurInputField={(text, type) => updateTweet(tweet.id, text, type)}
+            onBlurInputField={(text, kind) => updateTweet(tweet.id, text, kind)}
           />
         )}
       </div>
@@ -28,5 +30,24 @@ TweetList.propTypes = {
   deleteTweet: PropTypes.func.isRequired,
   updateTweet: PropTypes.func.isRequired,
 }
+
+const mapStateToProps = (state) => {
+  return {
+    tweets: state.tweets
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    deleteTweet: (id) => {
+      dispatch(deleteTweet(id))
+    },
+    updateTweet: (id, text, type) => {
+      dispatch(updateTweet(id, text, type))
+    }
+  }
+}
+
+TweetList = connect(mapStateToProps, mapDispatchToProps)(TweetList)
 
 export default TweetList

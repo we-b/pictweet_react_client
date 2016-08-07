@@ -17,11 +17,11 @@ class Tweet extends React.Component{
         </div>
         <p>{text}</p>
         <input type="text" defaultValue={text} onBlur={e => {
-          onBlurInputField(e.target.value, "text");
+          onBlurInputField(e.target.value, 'text');
         }}/>
         <br></br>
         <input type="text" defaultValue={image} onBlur={e => {
-            onBlurInputField(e.target.value, "image");
+            onBlurInputField(e.target.value, 'image');
         }}/>
       </div>
     );
