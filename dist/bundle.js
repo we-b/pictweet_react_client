@@ -4,7 +4,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchTweets = exports.editTweetImageAsync = exports.editTweetTextAsync = exports.deleteTweetAsync = exports.postTweetAsync = undefined;
+exports.fetchTweets = exports.updateTweetAsync = exports.updateTweet = exports.deleteTweetAsync = exports.createTweetAsync = undefined;
 
 var _jquery = require('jquery');
 
@@ -12,7 +12,16 @@ var _jquery2 = _interopRequireDefault(_jquery);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var postTweetAsync = exports.postTweetAsync = function postTweetAsync(text, image) {
+var createTweet = function createTweet(id, text, image) {
+  return {
+    type: 'CREATE_TWEET',
+    id: id,
+    text: text,
+    image: image
+  };
+};
+
+var createTweetAsync = exports.createTweetAsync = function createTweetAsync(text, image) {
   return function (dispatch) {
     return _jquery2.default.ajax({
       url: 'http://localhost:3000/api/tweets',
@@ -20,19 +29,17 @@ var postTweetAsync = exports.postTweetAsync = function postTweetAsync(text, imag
       dataType: 'json',
       data: { text: text, image: image }
     }).done(function (data) {
-      return dispatch(addTweet(data.tweet));
+      return dispatch(createTweet(data.id, data.text, data.image));
     }).fail(function (data) {
       return console.log(data);
     });
   };
 };
 
-var addTweet = function addTweet(tweet) {
+var deleteTweet = function deleteTweet(id) {
   return {
-    type: 'ADD_TWEET',
-    id: tweet.id,
-    text: tweet.text,
-    image: tweet.image
+    type: 'DELETE_TWEET',
+    id: id
   };
 };
 
@@ -44,77 +51,48 @@ var deleteTweetAsync = exports.deleteTweetAsync = function deleteTweetAsync(id) 
       dataType: 'json',
       data: { id: id }
     }).done(function (data) {
-      return dispatch(deleteTweet(data.tweet));
+      return dispatch(deleteTweet(data.id));
     }).fail(function (data) {
       return console.log(data);
     });
   };
 };
 
-var deleteTweet = function deleteTweet(tweet) {
+var updateTweet = exports.updateTweet = function updateTweet(id, text, image) {
   return {
-    type: 'DELETE_TWEET',
-    id: tweet.id
+    type: 'UPDATE_TWEET',
+    id: id,
+    text: text,
+    image: image
   };
 };
 
-var editTweetTextAsync = exports.editTweetTextAsync = function editTweetTextAsync(id, text) {
+var updateTweetAsync = exports.updateTweetAsync = function updateTweetAsync(id, text, image) {
   return function (dispatch) {
     return _jquery2.default.ajax({
       url: 'http://localhost:3000/api/tweets/' + id,
       type: 'put',
       dataType: 'json',
-      data: { id: id, text: text }
+      data: { id: id, text: text, image: image }
     }).done(function (data) {
-      return dispatch(editTweetText(data.tweet));
+      return dispatch(updateTweet(data.id, data.text, data.image));
     }).fail(function (data) {
       return console.log(data);
     });
   };
 };
 
-var editTweetText = function editTweetText(tweet) {
-  return {
-    type: 'EDIT_TWEET_TEXT',
-    id: tweet.id,
-    text: tweet.text
-  };
-};
-
-var editTweetImageAsync = exports.editTweetImageAsync = function editTweetImageAsync(id, image) {
-  return function (dispatch) {
-    return _jquery2.default.ajax({
-      url: 'http://localhost:3000/api/tweets/' + id,
-      type: 'put',
-      dataType: 'json',
-      data: { id: id, image: image }
-    }).done(function (data) {
-      return dispatch(editTweetImage(data.tweet));
-    }).fail(function (data) {
-      return console.log(data);
-    });
-  };
-};
-
-var editTweetImage = function editTweetImage(tweet) {
-  return {
-    type: 'EDIT_TWEET_IMAGE',
-    id: tweet.id,
-    image: tweet.image
-  };
-};
-
-var receiveTweets = function receiveTweets(data) {
+var receiveTweets = function receiveTweets(tweets) {
   return {
     type: 'RECEIVE_TWEETS',
-    tweets: data.tweets
+    tweets: tweets
   };
 };
 
 var fetchTweets = exports.fetchTweets = function fetchTweets() {
   return function (dispatch) {
     return _jquery2.default.getJSON('http://localhost:3000/api/tweets').done(function (data) {
-      return dispatch(receiveTweets(data));
+      return dispatch(receiveTweets(data.tweets));
     }).fail(function (data) {
       return console.log(data);
     });
@@ -209,11 +187,16 @@ var Tweet = function (_React$Component) {
   _createClass(Tweet, [{
     key: "render",
     value: function render() {
-      var onClickDeleteButton = this.props.onClickDeleteButton;
-      var onEditText = this.props.onEditText;
-      var onEditImage = this.props.onEditImage;
-      var text = this.props.text;
-      var image = this.props.image;
+      var textField = void 0;
+      var imageField = void 0;
+
+      var _props = this.props;
+      var text = _props.text;
+      var image = _props.image;
+      var id = _props.id;
+      var onClickDeleteButton = _props.onClickDeleteButton;
+      var onBlurInputField = _props.onBlurInputField;
+
       return _react2.default.createElement(
         "div",
         { className: "content__post", style: { backgroundImage: "url(" + image + ")" } },
@@ -244,13 +227,23 @@ var Tweet = function (_React$Component) {
           null,
           text
         ),
-        _react2.default.createElement("input", { type: "text", defaultValue: text, onBlur: function onBlur(e) {
-            onEditText(e.target.value);
-          } }),
+        _react2.default.createElement("input", { type: "text", defaultValue: text,
+          onBlur: function onBlur(e) {
+            onBlurInputField(e.target.value, imageField.value);
+          },
+          ref: function ref(node) {
+            textField = node;
+          }
+        }),
         _react2.default.createElement("br", null),
-        _react2.default.createElement("input", { type: "text", defaultValue: image, onBlur: function onBlur(e) {
-            onEditImage(e.target.value);
-          } })
+        _react2.default.createElement("input", { type: "text", defaultValue: image,
+          onBlur: function onBlur(e) {
+            onBlurInputField(textField.value, e.target.value);
+          },
+          ref: function ref(node) {
+            imageField = node;
+          }
+        })
       );
     }
   }]);
@@ -260,8 +253,7 @@ var Tweet = function (_React$Component) {
 
 Tweet.propTypes = {
   onClickDeleteButton: _react.PropTypes.func.isRequired,
-  onEditText: _react.PropTypes.func.isRequired,
-  onEditImage: _react.PropTypes.func.isRequired,
+  onBlurInputField: _react.PropTypes.func.isRequired,
   text: _react.PropTypes.string.isRequired,
   image: _react.PropTypes.string.isRequired
 };
@@ -320,7 +312,7 @@ var TweetForm = function (_React$Component) {
               if (!textField.value.trim() || !imageField.value.trim()) {
                 return;
               }
-              _this2.props.postTweetAsync(textField.value, imageField.value);
+              _this2.props.createTweetAsync(textField.value, imageField.value);
               textField.value = '';
               imageField.value = '';
             } },
@@ -345,15 +337,7 @@ var TweetForm = function (_React$Component) {
 }(_react2.default.Component);
 
 TweetForm.propTypes = {
-  postTweetAsync: _react.PropTypes.func.isRequired
-};
-
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {
-    postTweetAsync: function postTweetAsync(text, image) {
-      dispatch((0, _actions.postTweetAsync)(text, image));
-    }
-  };
+  createTweetAsync: _react.PropTypes.func.isRequired
 };
 
 var mapStateToProps = function mapStateToProps(state) {
@@ -362,7 +346,16 @@ var mapStateToProps = function mapStateToProps(state) {
   };
 };
 
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    createTweetAsync: function createTweetAsync(text, image) {
+      dispatch((0, _actions.createTweetAsync)(text, image));
+    }
+  };
+};
+
 TweetForm = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(TweetForm);
+
 exports.default = TweetForm;
 
 },{"../actions":1,"react":197,"react-redux":14}],5:[function(require,module,exports){
@@ -380,11 +373,11 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = require('react-redux');
-
 var _Tweet = require('../components/Tweet');
 
 var _Tweet2 = _interopRequireDefault(_Tweet);
+
+var _reactRedux = require('react-redux');
 
 var _actions = require('../actions');
 
@@ -413,23 +406,23 @@ var TweetList = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
+      var _props = this.props;
+      var tweets = _props.tweets;
+      var updateTweetAsync = _props.updateTweetAsync;
+      var deleteTweetAsync = _props.deleteTweetAsync;
 
       return _react2.default.createElement(
         'div',
         { className: 'tweet-list' },
-        this.props.tweets.map(function (tweet) {
+        tweets.map(function (tweet) {
           return _react2.default.createElement(_Tweet2.default, _extends({
             key: tweet.id
           }, tweet, {
             onClickDeleteButton: function onClickDeleteButton() {
-              return _this2.props.deleteTweetAsync(tweet.id);
+              return deleteTweetAsync(tweet.id);
             },
-            onEditText: function onEditText(text) {
-              return _this2.props.editTweetTextAsync(tweet.id, text);
-            },
-            onEditImage: function onEditImage(image) {
-              return _this2.props.editTweetImageAsync(tweet.id, image);
+            onBlurInputField: function onBlurInputField(text, image) {
+              return updateTweetAsync(tweet.id, text, image);
             }
           }));
         })
@@ -447,8 +440,8 @@ TweetList.propTypes = {
     image: _react.PropTypes.string.isRequired
   }).isRequired).isRequired,
   deleteTweetAsync: _react.PropTypes.func.isRequired,
-  editTweetTextAsync: _react.PropTypes.func.isRequired,
-  editTweetImageAsync: _react.PropTypes.func.isRequired
+  updateTweetAsync: _react.PropTypes.func.isRequired,
+  fetchTweets: _react.PropTypes.func.isRequired
 };
 
 var mapStateToProps = function mapStateToProps(state) {
@@ -462,11 +455,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     deleteTweetAsync: function deleteTweetAsync(id) {
       dispatch((0, _actions.deleteTweetAsync)(id));
     },
-    editTweetTextAsync: function editTweetTextAsync(id, text) {
-      dispatch((0, _actions.editTweetTextAsync)(id, text));
-    },
-    editTweetImageAsync: function editTweetImageAsync(id, image) {
-      dispatch((0, _actions.editTweetImageAsync)(id, image));
+    updateTweetAsync: function updateTweetAsync(id, text, image) {
+      dispatch((0, _actions.updateTweetAsync)(id, text, image));
     },
     fetchTweets: function fetchTweets() {
       dispatch((0, _actions.fetchTweets)());
@@ -475,6 +465,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 TweetList = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(TweetList);
+
 exports.default = TweetList;
 
 },{"../actions":1,"../components/Tweet":3,"react":197,"react-redux":14}],6:[function(require,module,exports){
@@ -546,24 +537,18 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 var tweet = function tweet(state, action) {
   switch (action.type) {
-    case 'ADD_TWEET':
+    case 'CREATE_TWEET':
       return {
         id: action.id,
         text: action.text,
         image: action.image
       };
-    case 'EDIT_TWEET_TEXT':
+    case 'UPDATE_TWEET':
       if (state.id !== action.id) {
         return state;
       }
       return _extends({}, state, {
-        text: action.text
-      });
-    case 'EDIT_TWEET_IMAGE':
-      if (state.id !== action.id) {
-        return state;
-      }
-      return _extends({}, state, {
+        text: action.text,
         image: action.image
       });
     default:
@@ -576,17 +561,13 @@ var tweets = function tweets() {
   var action = arguments[1];
 
   switch (action.type) {
-    case 'ADD_TWEET':
+    case 'CREATE_TWEET':
       return [tweet(undefined, action)].concat(_toConsumableArray(state));
     case 'DELETE_TWEET':
       return state.filter(function (tweet) {
         return tweet.id !== action.id;
       });
-    case 'EDIT_TWEET_TEXT':
-      return state.map(function (t) {
-        return tweet(t, action);
-      });
-    case 'EDIT_TWEET_IMAGE':
+    case 'UPDATE_TWEET':
       return state.map(function (t) {
         return tweet(t, action);
       });
