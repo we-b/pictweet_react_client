@@ -13,11 +13,11 @@ export const deleteTweet = (id) => {
   }
 }
 
-export const updateTweet = (id, text, kind) => {
+export const updateTweet = (id, text, image) => {
   return {
     type: 'UPDATE_TWEET',
     id,
     text,
-    kind
+    image
   }
 }

@@ -13,7 +13,7 @@ class TweetList extends React.Component{
             key={tweet.id}
             {...tweet}
             onClickDeleteButton={() => deleteTweet(tweet.id)}
-            onBlurInputField={(text, kind) => updateTweet(tweet.id, text, kind)}
+            onBlurInputField={(text, image) => updateTweet(tweet.id, text, image)}
           />
         )}
       </div>
@@ -42,8 +42,8 @@ const mapDispatchToProps = (dispatch) => {
     deleteTweet: (id) => {
       dispatch(deleteTweet(id))
     },
-    updateTweet: (id, text, type) => {
-      dispatch(updateTweet(id, text, type))
+    updateTweet: (id, text, image) => {
+      dispatch(updateTweet(id, text, image))
     }
   }
 }

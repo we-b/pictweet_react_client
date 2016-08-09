@@ -10,16 +10,10 @@ const tweet = (state, action) => {
       if(state.id !== action.id){
         return state
       }
-      if(action.kind == 'text'){
-        return Object.assign({}, state, {
-          text: action.text
-        })
-      }
-      else if(action.kind == 'image') {
-        return Object.assign({}, state, {
-          image: action.text
-        })
-      }
+      return Object.assign({}, state, {
+        text: action.text,
+        image: action.image
+      })
     default:
       return state
   }
